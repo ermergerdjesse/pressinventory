@@ -9,13 +9,6 @@ body {
     color: #333;
 }
 
-h2 {
-    color: #222;
-    margin-bottom: 15px;
-    font-size: 36px;
-    font-weight: 700;
-}
-
 .container {
     max-width: 1000px;
     margin: auto;
@@ -46,7 +39,7 @@ th, td {
 }
 
 th {
-    background: linear-gradient(135deg, #007bff, #0056b3);
+    background: linear-gradient(135deg, #dc3545, #a71d2a); /* Changed to red */
     color: white;
     font-size: 26px;
     font-weight: bold;
@@ -83,10 +76,10 @@ input {
 }
 
 input:focus {
-    border-color: #007bff;
+    border-color: #dc3545;
     outline: none;
     background: white;
-    box-shadow: 0 0 8px rgba(0, 123, 255, 0.3);
+    box-shadow: 0 0 8px rgba(220, 53, 69, 0.3);
 }
 
 input[type="file"] {
@@ -100,14 +93,14 @@ button {
     border: none;
     border-radius: 6px;
     cursor: pointer;
-    background: linear-gradient(135deg, #007bff, #0056b3);
+    background: linear-gradient(135deg, #dc3545, #a71d2a);
     color: white;
     transition: all 0.3s ease;
     font-weight: bold;
 }
 
 button:hover {
-    background: linear-gradient(135deg, #0056b3, #003d82);
+    background: linear-gradient(135deg, #a71d2a, #7a101c);
     transform: scale(1.05);
 }
 
@@ -123,5 +116,5 @@ img {
 
 img:hover {
     transform: scale(1.1);
-    border-color: #007bff;
+    border-color: #dc3545;
 }
