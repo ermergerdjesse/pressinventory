@@ -1,3 +1,4 @@
+/* styles.css */
 body {
     font-family: 'Poppins', sans-serif;
     background-color: #eef2f7;
@@ -88,8 +89,12 @@ input:focus {
     box-shadow: 0 0 8px rgba(0, 123, 255, 0.3);
 }
 
+input[type="file"] {
+    font-size: 16px; /* Reduced font size for Choose File button */
+}
+
 button {
-    font-size: 12px;
+    font-size: 22px;
     padding: 8px 16px;
     margin: 5px;
     border: none;
