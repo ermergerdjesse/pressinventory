@@ -13,14 +13,17 @@ function renderInventory() {
         const row = document.createElement("tr");
         row.innerHTML = `
             <td>${item.name}</td>
-            <td><img src="${item.image || 'placeholder.jpg'}" alt="Item Image"></td>
+            <td>
+                <img src="${item.image || 'placeholder.jpg'}" alt="Item Image">
+                ${item.image ? `<button onclick="removeImage(${index})">Remove</button>` : ""}
+            </td>
             <td>
                 <button onclick="adjustInventory(${index}, -1)">-</button>
                 <input type="number" value="${item.current}" class="${item.current < item.min ? 'low-inventory' : ''}" onchange="updateInventory(${index}, 'current', this.value)">
                 <button onclick="adjustInventory(${index}, 1)">+</button>
             </td>
             <td><input type="number" value="${item.min}" onchange="updateInventory(${index}, 'min', this.value)"></td>
-            <td>${canOrder}</td>
+            <td class="${canOrder > 0 ? 'order-needed' : ''}">${canOrder}</td>
             <td><input type="file" accept="image/*" onchange="uploadImage(event, ${index})"></td>
         `;
         tbody.appendChild(row);
@@ -47,6 +50,11 @@ function uploadImage(event, index) {
         };
         reader.readAsDataURL(file);
     }
+}
+
+function removeImage(index) {
+    inventory[index].image = "";
+    renderInventory();
 }
 
 renderInventory();
