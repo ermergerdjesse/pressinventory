@@ -1,13 +1,9 @@
-const inventory = JSON.parse(localStorage.getItem('inventory')) || [
+const inventory = [
     { name: "Item A", current: 10, min: 5, image: "" },
     { name: "Item B", current: 3, min: 5, image: "" },
     { name: "Item C", current: 8, min: 7, image: "" },
     { name: "Item D", current: 2, min: 4, image: "" }
 ];
-
-function saveInventory() {
-    localStorage.setItem('inventory', JSON.stringify(inventory));
-}
 
 function renderInventory() {
     const tbody = document.getElementById("inventory-body");
@@ -33,14 +29,24 @@ function renderInventory() {
 
 function updateInventory(index, key, value) {
     inventory[index][key] = parseInt(value, 10) || 0;
-    saveInventory();
     renderInventory();
 }
 
 function adjustInventory(index, amount) {
     inventory[index].current = Math.max(0, inventory[index].current + amount);
-    saveInventory();
     renderInventory();
 }
 
-f
+function uploadImage(event, index) {
+    const file = event.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            inventory[index].image = e.target.result;
+            renderInventory();
+        };
+        reader.readAsDataURL(file);
+    }
+}
+
+renderInventory();
