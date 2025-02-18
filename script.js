@@ -28,4 +28,7 @@ function renderInventory() {
 function updateInventory(index, key, value) {
     inventory[index][key] = parseInt(value, 10) || 0;
     saveInventory();
-    renderInventory
+    renderInventory();
+}
+
+renderInventory();
