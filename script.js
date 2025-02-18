@@ -18,7 +18,11 @@ function renderInventory() {
         row.innerHTML = `
             <td>${item.name}</td>
             <td><img src="${item.image || 'placeholder.jpg'}" alt="Item Image"></td>
-            <td><input type="number" value="${item.current}" class="${item.current < item.min ? 'low-inventory' : ''}" onchange="updateInventory(${index}, 'current', this.value)"></td>
+            <td>
+                <button onclick="adjustInventory(${index}, -1)">-</button>
+                <input type="number" value="${item.current}" class="${item.current < item.min ? 'low-inventory' : ''}" onchange="updateInventory(${index}, 'current', this.value)">
+                <button onclick="adjustInventory(${index}, 1)">+</button>
+            </td>
             <td><input type="number" value="${item.min}" onchange="updateInventory(${index}, 'min', this.value)"></td>
             <td>${canOrder}</td>
             <td><input type="file" accept="image/*" onchange="uploadImage(event, ${index})"></td>
@@ -33,17 +37,10 @@ function updateInventory(index, key, value) {
     renderInventory();
 }
 
-function uploadImage(event, index) {
-    const file = event.target.files[0];
-    if (file) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            inventory[index].image = e.target.result;
-            saveInventory();
-            renderInventory();
-        };
-        reader.readAsDataURL(file);
-    }
+function adjustInventory(index, amount) {
+    inventory[index].current = Math.max(0, inventory[index].current + amount);
+    saveInventory();
+    renderInventory();
 }
 
-renderInventory();
+f
