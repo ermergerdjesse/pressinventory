@@ -27,7 +27,8 @@ h2 {
 
 table {
     width: 100%;
-    border-collapse: collapse;
+    border-collapse: separate;
+    border-spacing: 90px;
     margin-top: 30px;
     border: 4px solid #dee2e6;
     background: #fff;
