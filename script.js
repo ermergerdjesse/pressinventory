@@ -1,3 +1,5 @@
+const placeholderImage = "https://via.placeholder.com/150"; // Default placeholder image
+
 const inventory = [
     { name: "Item A", current: 10, min: 5, image: "" },
     { name: "Item B", current: 3, min: 5, image: "" },
@@ -14,7 +16,7 @@ function renderInventory() {
         row.innerHTML = `
             <td>${item.name}</td>
             <td>
-                <img src="${item.image || 'placeholder.jpg'}" alt="Item Image">
+                <img src="${item.image || placeholderImage}" alt="Item Image">
                 ${item.image ? `<button onclick="removeImage(${index})">Remove</button>` : ""}
             </td>
             <td>
