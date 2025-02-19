@@ -4,9 +4,9 @@ const storageKey = "inventoryData";
 const inventory = JSON.parse(localStorage.getItem(storageKey)) || Array.from({ length: 16 }, (_, i) => ({
     itemNumber: i + 1,
     name: `Item ${String.fromCharCode(65 + i)}`, // Generates "Item A" to "Item Q"
+    image: "",
     current: Math.floor(Math.random() * 10) + 1,
-    min: 5,
-    image: ""
+    min: 5
 }));
 
 // Save inventory to Local Storage
@@ -14,7 +14,7 @@ function saveInventory() {
     localStorage.setItem(storageKey, JSON.stringify(inventory));
 }
 
-// Render inventory table
+// Render inventory table with correct column alignment
 function renderInventory() {
     const tbody = document.getElementById("inventory-body");
     tbody.innerHTML = "";
@@ -35,9 +35,13 @@ function renderInventory() {
                 <input type="number" value="${item.current}" class="${item.current < item.min ? 'low-inventory' : ''}" onchange="updateInventory(${index}, 'current', this.value)">
                 <button onclick="adjustInventory(${index}, 1)">+</button>
             </td>
-            <td><input type="number" value="${item.min}" onchange="updateInventory(${index}, 'min', this.value)"></td>
+            <td>
+                <input type="number" value="${item.min}" onchange="updateInventory(${index}, 'min', this.value)">
+            </td>
             <td class="${canOrder > 0 ? 'order-needed' : ''}">${canOrder}</td>
-            <td><input type="file" accept="image/*" onchange="uploadImage(event, ${index})"></td>
+            <td>
+                <input type="file" accept="image/*" onchange="uploadImage(event, ${index})">
+            </td>
         `;
         tbody.appendChild(row);
     });
