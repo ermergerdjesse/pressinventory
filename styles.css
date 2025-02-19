@@ -1,4 +1,4 @@
-body {
+ody {
     font-family: 'Poppins', sans-serif;
     background-color: #eef2f7;
     margin: 0;
@@ -6,7 +6,7 @@ body {
     text-align: center;
     font-size: 24px;
     color: #333;
-    overflow-y: auto; /* Enables vertical scrolling */
+    overflow-y: auto; /* Enables full-page scrolling */
 }
 
 .container {
@@ -17,7 +17,7 @@ body {
     border-radius: 12px;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
     border: 3px solid #dee2e6;
-    max-height: 80vh; /* Allows scrolling inside container */
+    max-height: 80vh; /* Ensures the container scrolls when needed */
     overflow-y: auto;
 }
 
@@ -41,11 +41,14 @@ th, td {
 }
 
 th {
-    background: linear-gradient(135deg, #dc3545, #a71d2a); /* Changed to red */
+    background: linear-gradient(135deg, #dc3545, #a71d2a);
     color: white;
     font-size: 26px;
     font-weight: bold;
     text-transform: uppercase;
+    position: sticky;
+    top: 0;
+    z-index: 2;
 }
 
 tr:nth-child(even) {
