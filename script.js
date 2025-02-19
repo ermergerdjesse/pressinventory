@@ -3,7 +3,7 @@ const storageKey = "inventoryData";
 // Generate inventory items from A to Q (16 items)
 const inventory = JSON.parse(localStorage.getItem(storageKey)) || Array.from({ length: 16 }, (_, i) => ({
     itemNumber: i + 1,
-    name: `Item ${String.fromCharCode(65 + i)}`, // Converts 0 → A, 1 → B, ... 15 → Q
+    name: `Item ${String.fromCharCode(65 + i)}`, // Generates "Item A" to "Item Q"
     current: Math.floor(Math.random() * 10) + 1,
     min: 5,
     image: ""
@@ -23,7 +23,9 @@ function renderInventory() {
         const row = document.createElement("tr");
         row.innerHTML = `
             <td>${item.itemNumber}</td>
-            <td>${item.name}</td>
+            <td>
+                <input type="text" value="${item.name}" onchange="updateInventory(${index}, 'name', this.value)">
+            </td>
             <td>
                 <img src="${item.image || 'placeholder.jpg'}" alt="Item Image">
                 ${item.image ? `<button onclick="removeImage(${index})">Remove</button>` : ""}
@@ -43,7 +45,7 @@ function renderInventory() {
 
 // Update inventory and save to Local Storage
 function updateInventory(index, key, value) {
-    inventory[index][key] = parseInt(value, 10) || 0;
+    inventory[index][key] = key === "name" ? value : parseInt(value, 10) || 0;
     saveInventory();
     renderInventory();
 }
