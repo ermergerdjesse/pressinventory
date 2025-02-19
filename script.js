@@ -3,7 +3,7 @@ const storageKey = "inventoryData";
 // Generate inventory items from A to Q (16 items)
 const inventory = JSON.parse(localStorage.getItem(storageKey)) || Array.from({ length: 16 }, (_, i) => ({
     itemNumber: i + 1,
-    name: `Item ${String.fromCharCode(65 + i)}`, // Generates "Item A" to "Item Q"
+    name: `Item ${String.fromCharCode(65 + i)}`, // "Item A" to "Item Q"
     image: "",
     current: Math.floor(Math.random() * 10) + 1,
     min: 5
@@ -14,32 +14,33 @@ function saveInventory() {
     localStorage.setItem(storageKey, JSON.stringify(inventory));
 }
 
-// Render inventory table correctly
+// Render inventory table correctly with aligned columns
 function renderInventory() {
     const tbody = document.getElementById("inventory-body");
     tbody.innerHTML = "";
+
     inventory.forEach((item, index) => {
         const canOrder = item.current < item.min ? item.min - item.current : 0;
         const row = document.createElement("tr");
         row.innerHTML = `
-            <td>${item.itemNumber}</td> <!-- Correctly places Item # -->
-            <td>${item.name}</td> <!-- Correctly places Item Name -->
+            <td>${item.itemNumber}</td> <!-- Correct Item # -->
+            <td>${item.name || `Item ${String.fromCharCode(65 + index)}`}</td> <!-- Correct Item Name -->
             <td>
                 <img src="${item.image || 'placeholder.jpg'}" alt="Item Image">
                 ${item.image ? `<button onclick="removeImage(${index})">Remove</button>` : ""}
-            </td> <!-- Correctly places Image -->
+            </td> <!-- Correct Image Placement -->
             <td>
                 <button onclick="adjustInventory(${index}, -1)">-</button>
                 <input type="number" value="${item.current}" class="${item.current < item.min ? 'low-inventory' : ''}" onchange="updateInventory(${index}, 'current', this.value)">
                 <button onclick="adjustInventory(${index}, 1)">+</button>
-            </td> <!-- Correctly places Current Inventory -->
+            </td> <!-- Correct Current Inventory -->
             <td>
                 <input type="number" value="${item.min}" onchange="updateInventory(${index}, 'min', this.value)">
-            </td> <!-- Correctly places Minimum Inventory -->
-            <td class="${canOrder > 0 ? 'order-needed' : ''}">${canOrder}</td> <!-- Correctly places Can Order -->
+            </td> <!-- Correct Minimum Inventory -->
+            <td class="${canOrder > 0 ? 'order-needed' : ''}">${canOrder}</td> <!-- Correct Can Order -->
             <td>
                 <input type="file" accept="image/*" onchange="uploadImage(event, ${index})">
-            </td> <!-- Correctly places Upload Image -->
+            </td> <!-- Correct Upload Image -->
         `;
         tbody.appendChild(row);
     });
