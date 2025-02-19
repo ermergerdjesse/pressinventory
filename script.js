@@ -2,7 +2,6 @@ const storageKey = "inventoryData";
 
 // Generate inventory items from A to Q (16 items)
 const inventory = JSON.parse(localStorage.getItem(storageKey)) || Array.from({ length: 16 }, (_, i) => ({
-    itemNumber: i + 1,
     name: `Item ${String.fromCharCode(65 + i)}`, // "Item A" to "Item Q"
     image: "",
     current: Math.floor(Math.random() * 10) + 1,
@@ -14,7 +13,7 @@ function saveInventory() {
     localStorage.setItem(storageKey, JSON.stringify(inventory));
 }
 
-// Render inventory table correctly with aligned columns
+// Render inventory table correctly
 function renderInventory() {
     const tbody = document.getElementById("inventory-body");
     tbody.innerHTML = "";
@@ -23,8 +22,7 @@ function renderInventory() {
         const canOrder = item.current < item.min ? item.min - item.current : 0;
         const row = document.createElement("tr");
         row.innerHTML = `
-            <td>${item.itemNumber}</td> <!-- Correct Item # -->
-            <td>${item.name || `Item ${String.fromCharCode(65 + index)}`}</td> <!-- Correct Item Name -->
+            <td>${item.name}</td> <!-- Correct Item Name -->
             <td>
                 <img src="${item.image || 'placeholder.jpg'}" alt="Item Image">
                 ${item.image ? `<button onclick="removeImage(${index})">Remove</button>` : ""}
