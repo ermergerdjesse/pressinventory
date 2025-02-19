@@ -2,7 +2,7 @@ const storageKey = "inventoryData";
 
 // Generate inventory items from A to Q (16 items)
 const inventory = JSON.parse(localStorage.getItem(storageKey)) || Array.from({ length: 16 }, (_, i) => ({
-    name: `Item ${String.fromCharCode(65 + i)}`, // "Item A" to "Item Q"
+    name: `Item ${String.fromCharCode(65 + i)}`, // Generates "Item A" to "Item Q"
     image: "",
     current: Math.floor(Math.random() * 10) + 1,
     min: 5
@@ -13,7 +13,7 @@ function saveInventory() {
     localStorage.setItem(storageKey, JSON.stringify(inventory));
 }
 
-// Render inventory table correctly
+// Render inventory table correctly with editable item names
 function renderInventory() {
     const tbody = document.getElementById("inventory-body");
     tbody.innerHTML = "";
@@ -22,7 +22,9 @@ function renderInventory() {
         const canOrder = item.current < item.min ? item.min - item.current : 0;
         const row = document.createElement("tr");
         row.innerHTML = `
-            <td>${item.name}</td> <!-- Correct Item Name -->
+            <td>
+                <input type="text" value="${item.name}" onchange="updateInventory(${index}, 'name', this.value)">
+            </td> <!-- Editable Item Name -->
             <td>
                 <img src="${item.image || 'placeholder.jpg'}" alt="Item Image">
                 ${item.image ? `<button onclick="removeImage(${index})">Remove</button>` : ""}
