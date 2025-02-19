@@ -1,19 +1,28 @@
 const storageKey = "inventoryData";
 
-// Generate inventory items from A to Q (16 items)
-const inventory = JSON.parse(localStorage.getItem(storageKey)) || Array.from({ length: 16 }, (_, i) => ({
+// Ensure exactly 16 items from A to Q are generated
+const defaultInventory = Array.from({ length: 16 }, (_, i) => ({
     name: `Item ${String.fromCharCode(65 + i)}`, // Generates "Item A" to "Item Q"
     image: "",
     current: Math.floor(Math.random() * 10) + 1,
     min: 5
 }));
 
+// Load saved inventory or initialize defaults
+let inventory = JSON.parse(localStorage.getItem(storageKey)) || defaultInventory;
+
+// Ensure inventory length is always 16 (prevents missing items)
+if (inventory.length < 16) {
+    inventory = defaultInventory;
+    saveInventory();
+}
+
 // Save inventory to Local Storage
 function saveInventory() {
     localStorage.setItem(storageKey, JSON.stringify(inventory));
 }
 
-// Render inventory table correctly with editable item names
+// Render inventory table correctly
 function renderInventory() {
     const tbody = document.getElementById("inventory-body");
     tbody.innerHTML = "";
