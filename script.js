@@ -1,21 +1,12 @@
 const storageKey = "inventoryData";
 
-// Ensure exactly 16 items from A to Q are generated
-const defaultInventory = Array.from({ length: 16 }, (_, i) => ({
+// Ensure at least 16 items exist, but allow adding more
+let inventory = JSON.parse(localStorage.getItem(storageKey)) || Array.from({ length: 16 }, (_, i) => ({
     name: `Item ${String.fromCharCode(65 + i)}`, // Generates "Item A" to "Item Q"
     image: "",
     current: Math.floor(Math.random() * 10) + 1,
     min: 5
 }));
-
-// Load saved inventory or initialize defaults
-let inventory = JSON.parse(localStorage.getItem(storageKey)) || defaultInventory;
-
-// Ensure inventory length is always 16 (prevents missing items)
-if (inventory.length < 16) {
-    inventory = defaultInventory;
-    saveInventory();
-}
 
 // Save inventory to Local Storage
 function saveInventory() {
@@ -26,9 +17,14 @@ function saveInventory() {
 function renderInventory() {
     const tbody = document.getElementById("inventory-body");
     tbody.innerHTML = "";
+    let itemsToOrder = [];
 
     inventory.forEach((item, index) => {
         const canOrder = item.current < item.min ? item.min - item.current : 0;
+        if (canOrder > 0) {
+            itemsToOrder.push(`${item.name} (Order ${canOrder})`);
+        }
+
         const row = document.createElement("tr");
         row.innerHTML = `
             <td>
@@ -53,6 +49,11 @@ function renderInventory() {
         `;
         tbody.appendChild(row);
     });
+
+    // Show popup if items need to be ordered
+    if (itemsToOrder.length > 0) {
+        alert(`Items that need to be ordered:\n${itemsToOrder.join("\n")}`);
+    }
 }
 
 // Update inventory and save to Local Storage
@@ -86,6 +87,19 @@ function uploadImage(event, index) {
 // Remove image and save to Local Storage
 function removeImage(index) {
     inventory[index].image = "";
+    saveInventory();
+    renderInventory();
+}
+
+// Add a new item row
+function addNewItem() {
+    const newItem = {
+        name: `Item ${String.fromCharCode(65 + inventory.length)}`,
+        image: "",
+        current: 0,
+        min: 5
+    };
+    inventory.push(newItem);
     saveInventory();
     renderInventory();
 }
