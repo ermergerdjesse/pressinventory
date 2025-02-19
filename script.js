@@ -14,7 +14,7 @@ function saveInventory() {
     localStorage.setItem(storageKey, JSON.stringify(inventory));
 }
 
-// Render inventory table with correct column alignment
+// Render inventory table correctly
 function renderInventory() {
     const tbody = document.getElementById("inventory-body");
     tbody.innerHTML = "";
@@ -22,26 +22,24 @@ function renderInventory() {
         const canOrder = item.current < item.min ? item.min - item.current : 0;
         const row = document.createElement("tr");
         row.innerHTML = `
-            <td>${item.itemNumber}</td>
-            <td>
-                <input type="text" value="${item.name}" onchange="updateInventory(${index}, 'name', this.value)">
-            </td>
+            <td>${item.itemNumber}</td> <!-- Correctly places Item # -->
+            <td>${item.name}</td> <!-- Correctly places Item Name -->
             <td>
                 <img src="${item.image || 'placeholder.jpg'}" alt="Item Image">
                 ${item.image ? `<button onclick="removeImage(${index})">Remove</button>` : ""}
-            </td>
+            </td> <!-- Correctly places Image -->
             <td>
                 <button onclick="adjustInventory(${index}, -1)">-</button>
                 <input type="number" value="${item.current}" class="${item.current < item.min ? 'low-inventory' : ''}" onchange="updateInventory(${index}, 'current', this.value)">
                 <button onclick="adjustInventory(${index}, 1)">+</button>
-            </td>
+            </td> <!-- Correctly places Current Inventory -->
             <td>
                 <input type="number" value="${item.min}" onchange="updateInventory(${index}, 'min', this.value)">
-            </td>
-            <td class="${canOrder > 0 ? 'order-needed' : ''}">${canOrder}</td>
+            </td> <!-- Correctly places Minimum Inventory -->
+            <td class="${canOrder > 0 ? 'order-needed' : ''}">${canOrder}</td> <!-- Correctly places Can Order -->
             <td>
                 <input type="file" accept="image/*" onchange="uploadImage(event, ${index})">
-            </td>
+            </td> <!-- Correctly places Upload Image -->
         `;
         tbody.appendChild(row);
     });
