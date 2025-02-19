@@ -1,12 +1,13 @@
 const storageKey = "inventoryData";
 
-// Load inventory from Local Storage or use default values
-const inventory = JSON.parse(localStorage.getItem(storageKey)) || [
-    { name: "Item A", current: 10, min: 5, image: "" },
-    { name: "Item B", current: 3, min: 5, image: "" },
-    { name: "Item C", current: 8, min: 7, image: "" },
-    { name: "Item D", current: 2, min: 4, image: "" }
-];
+// Generate inventory items from A to Q (16 items)
+const inventory = JSON.parse(localStorage.getItem(storageKey)) || Array.from({ length: 16 }, (_, i) => ({
+    itemNumber: i + 1,
+    name: `Item ${String.fromCharCode(65 + i)}`, // Converts 0 → A, 1 → B, ... 15 → Q
+    current: Math.floor(Math.random() * 10) + 1,
+    min: 5,
+    image: ""
+}));
 
 // Save inventory to Local Storage
 function saveInventory() {
@@ -21,6 +22,7 @@ function renderInventory() {
         const canOrder = item.current < item.min ? item.min - item.current : 0;
         const row = document.createElement("tr");
         row.innerHTML = `
+            <td>${item.itemNumber}</td>
             <td>${item.name}</td>
             <td>
                 <img src="${item.image || 'placeholder.jpg'}" alt="Item Image">
