@@ -4,7 +4,7 @@ body {
     margin: 0;
     padding: 20px;
     text-align: center;
-    font-size: 24px;
+    font-size: 20px; /* Reduced font size by 4pts */
     color: #333;
     overflow-y: auto; /* Enables full-page scrolling */
     height: 100vh;
@@ -33,18 +33,20 @@ table {
 
 th, td {
     border: 2px solid #dee2e6;
-    padding: 15px;
+    padding: 12px; /* Reduced padding */
     text-align: center;
-    font-size: 22px;
+    font-size: 18px; /* Reduced font size by 4pts */
     vertical-align: middle;
     border-radius: 6px;
     background: white;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 
 th {
     background: linear-gradient(135deg, #dc3545, #a71d2a);
     color: white;
-    font-size: 26px;
+    font-size: 22px; /* Reduced font size by 4pts */
     font-weight: bold;
     text-transform: uppercase;
     position: sticky;
@@ -72,8 +74,8 @@ tr:nth-child(even) {
 
 input {
     width: 100px;
-    padding: 8px;
-    font-size: 22px;
+    padding: 6px; /* Reduced padding */
+    font-size: 18px; /* Reduced font size by 4pts */
     text-align: center;
     border: 2px solid #ccc;
     border-radius: 6px;
@@ -89,12 +91,12 @@ input:focus {
 }
 
 input[type="file"] {
-    font-size: 16px; /* Reduced font size for Choose File button */
+    font-size: 12px; /* Reduced font size for Choose File button */
 }
 
 button {
-    font-size: 22px;
-    padding: 8px 16px;
+    font-size: 18px; /* Reduced font size by 4pts */
+    padding: 6px 14px;
     margin: 5px;
     border: none;
     border-radius: 6px;
@@ -111,8 +113,8 @@ button:hover {
 }
 
 img {
-    max-width: 80px;
-    max-height: 80px;
+    max-width: 70px;
+    max-height: 70px;
     display: block;
     margin: auto;
     border: 2px solid #ccc;
@@ -123,4 +125,25 @@ img {
 img:hover {
     transform: scale(1.1);
     border-color: #dc3545;
+}
+
+/* Button for adding a new row */
+.add-row-container {
+    margin-top: 20px;
+}
+
+.add-row-btn {
+    font-size: 18px;
+    padding: 10px 20px;
+    background: #28a745;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.add-row-btn:hover {
+    background: #218838;
+    transform: scale(1.05);
 }
